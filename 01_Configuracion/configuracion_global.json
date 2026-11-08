@@ -1,0 +1,48 @@
+{
+  "proyecto": "MAPA_3D",
+  "version": 1,
+  "crs_procesamiento": "EPSG:9377",
+  "escala_blender": 0.001,
+  "presupuesto_maximo_caras": 450000,
+  "resolucion_metros": {
+    "minima": 30,
+    "predeterminada": 60,
+    "maxima": 120
+  },
+  "rutas_herramientas": {
+    "python_earth_engine": ".venv/Scripts/python.exe",
+    "python_qgis": "C:/Program Files/QGIS 3.44.14/bin/python-qgis-ltr.bat",
+    "gdalwarp": "C:/Program Files/QGIS 3.44.14/bin/gdalwarp.exe",
+    "gdalinfo": "C:/Program Files/QGIS 3.44.14/bin/gdalinfo.exe",
+    "blender": "C:/Program Files/Blender Foundation/Blender 5.2/blender.exe"
+  },
+  "fuentes": {
+    "codigos_dane": {
+      "url": "https://www.datos.gov.co/resource/gdxc-w37w.json",
+      "catalogo": "https://www.datos.gov.co/Mapas-Nacionales/DIVIPOLA-C%C3%B3digos-municipios/gdxc-w37w",
+      "entidad": "DANE",
+      "licencia": "CC BY-SA 4.0"
+    },
+    "limites_oficiales": {
+      "prioridad": ["DANE", "IGAC"],
+      "requiere_archivo_o_servicio_verificable": true,
+      "no_aceptar_geometria_sin_procedencia": true
+    },
+    "dem": {
+      "proveedor": "Google Earth Engine",
+      "coleccion": "COPERNICUS/DEM/GLO30_2024_1",
+      "requiere_autenticacion": true
+    },
+    "imagen_satelital": {
+      "proveedor": "Copernicus Sentinel-2 L2A mediante Google Earth Engine",
+      "coleccion": "COPERNICUS/S2_SR_HARMONIZED",
+      "atribucion": "Contains modified Copernicus Sentinel data 2024, processed by Google Earth Engine",
+      "licencia": "Copernicus Sentinel Data Terms and Conditions"
+    },
+    "osm": {
+      "endpoint_overpass": "https://overpass-api.de/api/interpreter",
+      "atribucion": "OpenStreetMap contributors",
+      "licencia": "ODbL 1.0"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "nombre": "bogota-dc",
+  "crs": "EPSG:9377",
+  "eje_vertical": "Y",
+  "escala_unidad_metros": 1000,
+  "elevacion_base_m": 2303.734619140625,
+  "elevacion_max_m": 4151.91357421875,
+  "centro_proyectado": [
+    4864806.879551535,
+    2031437.5551363965
+  ],
+  "vertices": 112447,
+  "caras": 110312,
+  "exageracion_vertical": 1.0
+}

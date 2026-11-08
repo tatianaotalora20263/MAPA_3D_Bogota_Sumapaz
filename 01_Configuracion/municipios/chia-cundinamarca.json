@@ -1,0 +1,25 @@
+{
+  "id": "chia-cundinamarca",
+  "municipio": "Chia",
+  "departamento": "Cundinamarca",
+  "codigo_dane": "25175",
+  "resultado_relativo": "09_Resultados/25175/chia-cundinamarca",
+  "resolucion_metros": 30,
+  "exageracion_vertical": 1.0,
+  "imagen_satelital": {
+    "inicio": "2024-01-01",
+    "fin": "2025-01-01",
+    "nubes_maximas_por_escena": 50,
+    "tamano_maximo_px": 1536
+  },
+  "limite": {
+    "fuente_preferida": "DANE/IGAC",
+    "fallback_permitido_para_piloto": "OpenStreetMap",
+    "estado": "pendiente_de_validacion",
+    "advertencia": "No procesar como limite oficial sin un insumo oficial verificable."
+  },
+  "visor": {
+    "titulo": "Chia 3D",
+    "capas": ["limite", "vias", "lugares"]
+  }
+}

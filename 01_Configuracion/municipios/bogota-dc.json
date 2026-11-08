@@ -1,0 +1,29 @@
+{
+    "departamento":  "Bogota D.C.",
+    "id":  "bogota-dc",
+    "visor":  {
+                  "capas":  [
+                                "limite",
+                                "vias",
+                                "lugares"
+                            ],
+                  "titulo":  "Bogota D.C. 3D"
+              },
+    "imagen_satelital":  {
+                             "inicio":  "2024-01-01",
+                             "fin":  "2025-01-01",
+                             "nubes_maximas_por_escena":  50,
+                             "tamano_maximo_px":  4096
+                         },
+    "resolucion_metros":  30,
+    "exageracion_vertical":  1,
+    "codigo_dane":  "11001",
+    "municipio":  "Bogota D.C.",
+    "limite":  {
+                   "fuente_preferida":  "DANE/IGAC",
+                   "estado":  "pendiente_de_validacion",
+                   "advertencia":  "El limite OSM no debe presentarse como limite oficial.",
+                   "fallback_permitido_para_piloto":  "OpenStreetMap"
+               },
+    "resultado_relativo":  "09_Resultados/11001/bogota-dc"
+}

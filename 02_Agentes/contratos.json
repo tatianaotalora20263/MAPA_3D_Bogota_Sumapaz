@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "agentes": {
+    "coordinador": {"entrada": ["solicitud", "configuracion_municipio"], "salida": ["manifiesto", "plan_ejecucion"], "herramientas": ["OpenCode"]},
+    "limites": {"entrada": ["municipio", "codigo_dane"], "salida": ["limite.geojson", "procedencia.json"], "herramientas": ["HTTP", "GDAL"]},
+    "earth_engine": {"entrada": ["limite.geojson", "configuracion_dem"], "salida": ["dem_origen.tif", "dem_fuente.json"], "herramientas": ["Earth Engine"]},
+    "qgis": {"entrada": ["dem_origen.tif", "limite.geojson"], "salida": ["dem_9377.tif", "validacion_dem.json"], "herramientas": ["QGIS", "GDAL"]},
+    "blender": {"entrada": ["dem_9377.tif", "manifiesto"], "salida": ["terreno.blend", "terreno.glb"], "herramientas": ["Blender", "Blender MCP"]},
+    "cartografico": {"entrada": ["limite.geojson", "dem_9377.tif"], "salida": ["vias.geojson", "lugares.geojson"], "herramientas": ["OpenStreetMap", "GDAL"]},
+    "visor": {"entrada": ["terreno.glb", "capas", "manifiesto"], "salida": ["configuracion_visor.json", "sitio_compilado"], "herramientas": ["Three.js", "Vite"]},
+    "validacion": {"entrada": ["artefactos"], "salida": ["validacion.json", "evidencias"], "herramientas": ["GDAL", "Chrome DevTools MCP"]},
+    "publicacion": {"entrada": ["sitio_compilado"], "salida": ["workflow"], "herramientas": ["GitHub Actions"]}
+  },
+  "estados": ["pendiente", "en_progreso", "completado", "bloqueado", "fallido"],
+  "evidencia_minima": ["agente", "herramienta", "inicio_utc", "fin_utc", "estado", "artefactos", "mensaje"]
+}

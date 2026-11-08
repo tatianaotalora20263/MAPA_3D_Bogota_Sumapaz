@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAPA 3D</title>
+</head>
+<body>
+  <div id="panel">
+    <h1 id="titulo">MAPA 3D</h1>
+    <p id="subtitulo">Preparando configuracion...</p>
+    <div id="estado">Preparando visor...</div>
+    <div id="vistas" role="group" aria-label="Vista del mapa">
+      <button type="button" data-vista="relieve" class="activa">Relieve</button>
+      <button type="button" data-vista="satelite">Satelite</button>
+      <button type="button" data-vista="hibrido">Hibrido</button>
+    </div>
+    <div id="capas" aria-label="Capas cartograficas"></div>
+    <div id="consulta" aria-live="polite">Altura: --</div>
+    <div class="instrucciones">
+      Arrastrar: rotar · Rueda: acercar · Clic derecho: desplazar
+    </div>
+  </div>
+
+  <button id="reiniciar" type="button">Reiniciar vista</button>
+  <div id="leyenda" aria-label="Leyenda hipsometrica"></div>
+  <div id="fuentes"></div>
+  <div id="visor"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

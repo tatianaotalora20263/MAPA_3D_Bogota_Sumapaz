@@ -1,0 +1,44 @@
+.venv/
+__pycache__/
+*.py[cod]
+07_Visor_Web/node_modules/
+07_Visor_Web/dist/
+09_Resultados/*/*/01_bruto/*.tif
+09_Resultados/*/*/02_procesado/*.tif
+09_Resultados/*/*/02_procesado/*.npz
+09_Resultados/*/*/03_modelo/*.blend
+09_Resultados/*/*/03_modelo/*.glb
+10_Bitacora/ejecuciones/
+*.aux.xml
+*.lock
+
+# Respaldos locales
+respaldos/
+*.bak_*
+*.respaldo_*
+main_respaldo_*.js
+
+# Modelos antiguos no utilizados
+07_Visor_Web/Bogota_Copernicus_Terreno_3D.glb
+07_Visor_Web/Bogota_Terreno_3D.glb
+07_Visor_Web/public/models/Bogota_Copernicus_Terreno_3D.glb
+
+# Datos originales y resultados de procesamiento
+09_Resultados/
+04_Datos_Geograficos/
+05_QGIS/
+06_Blender/
+
+# Archivos temporales
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+
+# Copias historicas de recursos geograficos
+**/*respaldo*
+**/*anterior*
+**/*pre_rgba*
+**/*con_cortina*
+**/*.bak*

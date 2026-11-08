@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "municipio", "departamento", "codigo_dane", "resultado_relativo", "resolucion_metros", "limite"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "municipio": {"type": "string", "minLength": 1},
+    "departamento": {"type": "string", "minLength": 1},
+    "codigo_dane": {"type": "string", "pattern": "^[0-9]{5}$"},
+    "resultado_relativo": {"type": "string", "pattern": "^09_Resultados/"},
+    "resolucion_metros": {"type": "number", "minimum": 1},
+    "limite": {"type": "object", "required": ["fuente_preferida", "estado"]}
+  },
+  "additionalProperties": true
+}

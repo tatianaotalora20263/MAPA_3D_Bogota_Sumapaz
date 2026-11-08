@@ -1,0 +1,80 @@
+{
+  "municipios": {
+    "bogota": {
+      "nombre": "Bogota D.C.",
+      "subtitulo": "Terreno 3D de Bogota, incluyendo Sumapaz",
+      "modelo": "models/bogota-dc/terreno.glb",
+      "metadata": "models/bogota-dc/terreno.metadata.json",
+      "imagen_satelital": "textures/bogota-dc/satelite.png",
+      "atribuciones": [
+        "Terreno: Copernicus GLO-30",
+        "Imagen satelital: Sentinel-2",
+        "Cartografia: OpenStreetMap",
+        "Limite: servicio tematico IGAC"
+      ],
+      "capas": [
+        {
+          "id": "limite",
+          "nombre": "Limite de Bogota",
+          "color": "#FF00FF",
+          "visible": true,
+          "tipo": "linea",
+          "url": "capas/bogota-dc/limite.geojson"
+        },
+        {
+          "id": "vias",
+          "nombre": "Vias",
+          "color": "#ffffff",
+          "visible": true,
+          "tipo": "linea",
+          "url": "capas/bogota-dc/vias.geojson"
+        },
+        {
+          "id": "lugares",
+          "nombre": "Lugares de interes",
+          "color": "#ffd166",
+          "visible": true,
+          "tipo": "punto",
+          "url": "capas/bogota-dc/lugares.geojson"
+        }
+      ]
+    },
+    "chia-cundinamarca": {
+      "nombre": "Chia, Cundinamarca",
+      "subtitulo": "Modelo digital de elevacion | Copernicus GLO-30 2024_1",
+      "modelo": "models/chia-cundinamarca/terreno.glb",
+      "metadata": "models/chia-cundinamarca/terreno.metadata.json",
+      "imagen_satelital": "textures/chia-cundinamarca/satelite.png",
+      "atribuciones": [
+        "DEM: Copernicus GLO-30 2024_1 mediante Google Earth Engine",
+        "Cartografia: OpenStreetMap contributors, ODbL 1.0"
+      ],
+      "capas": [
+        {
+          "id": "limite",
+          "nombre": "Limite municipal",
+          "url": "capas/chia-cundinamarca/limite.geojson",
+          "tipo": "linea",
+          "color": "#f6d365",
+          "visible": true
+        },
+        {
+          "id": "vias",
+          "nombre": "Calles y vias",
+          "url": "capas/chia-cundinamarca/vias.geojson",
+          "tipo": "linea",
+          "color": "#ffffff",
+          "visible": true
+        },
+        {
+          "id": "lugares",
+          "nombre": "Lugares",
+          "url": "capas/chia-cundinamarca/lugares.geojson",
+          "tipo": "punto",
+          "color": "#ffd166",
+          "visible": true
+        }
+      ]
+    }
+  }
+}

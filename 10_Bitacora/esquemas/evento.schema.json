@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": ["id_ejecucion", "marca_utc", "agente", "herramienta", "estado", "mensaje"],
+  "properties": {
+    "id_ejecucion": {"type": "string"},
+    "marca_utc": {"type": "string"},
+    "agente": {"type": "string"},
+    "herramienta": {"type": "string"},
+    "estado": {"enum": ["pendiente", "en_progreso", "completado", "bloqueado", "fallido"]},
+    "mensaje": {"type": "string"},
+    "artefactos": {"type": "array"},
+    "evidencia": {"type": "object"}
+  }
+}

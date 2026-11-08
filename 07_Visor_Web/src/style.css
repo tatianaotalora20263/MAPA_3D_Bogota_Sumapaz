@@ -1,0 +1,14 @@
+* { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; color: #f5f7f6; background: #10243a; }
+#visor { position: fixed; inset: 0; }
+#panel, #leyenda, #fuentes, #reiniciar { position: absolute; z-index: 10; border-radius: 10px; background: rgba(8, 25, 39, .88); backdrop-filter: blur(8px); }
+#panel { top: 16px; left: 16px; width: min(340px, calc(100vw - 32px)); padding: 16px; }
+h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: 1px; } p, #estado, .instrucciones, #consulta { font-size: 13px; line-height: 1.5; } p { color: #c5d5e1; } #estado { color: #a8e6b0; margin: 10px 0; }
+#capas { display: grid; gap: 7px; margin: 12px 0; } #capas label { cursor: pointer; font-size: 13px; }
+#vistas { display: flex; gap: 5px; margin: 10px 0; } #vistas button { border: 1px solid #60809a; border-radius: 5px; padding: 6px 8px; color: white; background: transparent; cursor: pointer; font-size: 12px; } #vistas button.activa { background: #276749; border-color: #72b58d; }
+#consulta { color: #f6d365; margin-top: 8px; } .instrucciones { color: #c5d5e1; margin-top: 10px; }
+#reiniciar { right: 16px; bottom: 16px; padding: 11px 15px; border: 0; color: white; background-color: #276749; cursor: pointer; font-weight: bold; }
+#leyenda { right: 16px; top: 16px; padding: 12px; min-width: 155px; font-size: 12px; } #leyenda span { display: inline-block; width: 50%; } #leyenda span:last-child { text-align: right; }
+.gradiente { height: 10px; margin: 8px 0 4px; background: linear-gradient(90deg, #1f5c3a, #6dbf57, #e9d36c, #a66a3e, #f7f7f2); }
+#fuentes { bottom: 16px; left: 16px; max-width: 60vw; padding: 8px; font-size: 10px; color: #c5d5e1; }
+@media (max-width: 600px) { #leyenda { top: auto; bottom: 66px; right: 12px; } #panel { top: 12px; left: 12px; } #fuentes { display: none; } }

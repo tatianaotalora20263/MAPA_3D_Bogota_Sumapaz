@@ -1,0 +1,15 @@
+{
+  "nombre": "chia-cundinamarca",
+  "crs": "EPSG:9377",
+  "eje_vertical": "Y",
+  "escala_unidad_metros": 1000,
+  "elevacion_base_m": 2535.559326171875,
+  "elevacion_max_m": 3225.692626953125,
+  "centro_proyectado": [
+    4884976.148980347,
+    2096137.636721558
+  ],
+  "vertices": 88697,
+  "caras": 87564,
+  "exageracion_vertical": 1.0
+}
