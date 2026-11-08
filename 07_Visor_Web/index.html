@@ -15,7 +15,12 @@
       <button type="button" data-vista="satelite">Satelite</button>
       <button type="button" data-vista="hibrido">Hibrido</button>
     </div>
-    <div id="capas" aria-label="Capas cartograficas"></div>
+    <div id="recorrido-3d" role="group" aria-label="Recorrido animado del terreno">
+  <button id="recorrido-reproducir" type="button">Reproducir recorrido</button>
+  <button id="recorrido-pausar" type="button" disabled>Pausar</button>
+  <button id="recorrido-reiniciar" type="button">Reiniciar recorrido</button>
+</div>
+<div id="capas" aria-label="Capas cartograficas"></div>
     <div id="consulta" aria-live="polite">Altura: --</div>
     <div class="instrucciones">
       Arrastrar: rotar · Rueda: acercar · Clic derecho: desplazar
@@ -30,3 +35,4 @@
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
+

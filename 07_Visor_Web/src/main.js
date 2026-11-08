@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+﻿import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './style.css';
@@ -429,7 +429,7 @@ function activarSeleccionLugares() {
     titulo.style.fontSize = '18px';
 
     const cerrar = document.createElement('button');
-    cerrar.textContent = '×';
+    cerrar.textContent = 'Ã—';
     cerrar.setAttribute('aria-label', 'Cerrar ficha');
     cerrar.style.cssText = 'background:none;border:0;color:white;font-size:24px;cursor:pointer';
     cerrar.addEventListener('click', () => {
@@ -494,6 +494,206 @@ async function iniciar() {
   }, (error) => { console.error(error); estado.textContent = 'Error al cargar el terreno'; });
 }
 
+const recorrido3D = {
+  activo: false,
+  progreso: 0,
+  duracion: 110000,
+  ultimoTiempo: 0
+};
+
+const botonReproducir = document.getElementById('recorrido-reproducir');
+const botonPausar = document.getElementById('recorrido-pausar');
+const botonReiniciarRecorrido = document.getElementById('recorrido-reiniciar');
+
+function actualizarBotonesRecorrido() {
+  botonReproducir.textContent = recorrido3D.progreso > 0 && !recorrido3D.activo
+    ? 'Reanudar recorrido'
+    : 'Reproducir recorrido';
+
+  botonPausar.disabled = !recorrido3D.activo;
+}
+
+const puntosVuelo = [
+  // Circuito por los lugares de Sumapaz
+  new THREE.Vector3(-10.687, 2.3482, 28.082),
+  new THREE.Vector3(-11.422, 2.3482, 39.477),
+  new THREE.Vector3(-3.251, 2.3482, 28.099),
+  new THREE.Vector3(-10.687, 2.3482, 28.082)
+];
+
+// Vuelo panoramico hacia el norte por la zona central del DEM.
+const puntosCentrales = [
+  new THREE.Vector3(-10.687, 2.3482, 28.082),
+  new THREE.Vector3(4.630, 2.3482, 20.468),
+  new THREE.Vector3(4.238, 2.3482, 15.168),
+  new THREE.Vector3(7.794, 2.3482, 12.234),
+  new THREE.Vector3(8.038, 2.3482, 7.228),
+  new THREE.Vector3(7.218, 2.3482, 3.000),
+  new THREE.Vector3(8.938, 2.3482, -13.922),
+  new THREE.Vector3(6.989, 2.3482, -17.790),
+  new THREE.Vector3(10.385, 2.3482, -20.700),
+  new THREE.Vector3(6.365099, 2.3482, -31.184556),
+  new THREE.Vector3(10.208317, 2.3482, -30.841563),
+  new THREE.Vector3(13.756547, 2.3482, -31.271300),
+  new THREE.Vector3(20.815, 2.3482, -45.219)
+];
+
+const puntosFinales = [
+  new THREE.Vector3(20.815, 2.3482, -45.219),
+  new THREE.Vector3(8.610, 2.3482, -45.928),
+  new THREE.Vector3(18.163, 2.3482, -35.521)
+];
+
+const curvaSumapaz = new THREE.CatmullRomCurve3(
+  puntosVuelo, false, 'centripetal'
+);
+
+const curvaCentral = new THREE.CatmullRomCurve3(
+  puntosCentrales, false, 'centripetal'
+);
+
+const curvaFinal = new THREE.CatmullRomCurve3(
+  puntosFinales, false, 'centripetal'
+);
+
+function posicionRecorrido(t) {
+  const segundos = t * 110;
+
+  if (segundos <= 20) {
+    return curvaSumapaz.getPoint(
+      THREE.MathUtils.clamp(segundos / 20, 0, 1)
+    );
+  }
+
+  if (segundos <= 85) {
+    return curvaCentral.getPointAt(
+      THREE.MathUtils.clamp((segundos - 20) / 65, 0, 1)
+    );
+  }
+
+  return curvaFinal.getPoint(
+    THREE.MathUtils.clamp((segundos - 85) / 25, 0, 1)
+  );
+}
+
+const destinoMonserrate = new THREE.Vector3(
+  18.1629, 0.8606, -35.5212
+);
+
+const tiemposRecorrido = [
+  0,
+  7 / 110,
+  14 / 110,
+  20 / 110,
+  40 / 110,
+  60 / 110,
+  70 / 110,
+  90 / 110,
+  1
+];
+
+function interpolarTramo(t) {
+  for (let i = 0; i < tiemposRecorrido.length - 1; i++) {
+    const inicio = tiemposRecorrido[i];
+    const fin = tiemposRecorrido[i + 1];
+
+    if (t <= fin) {
+      const local = THREE.MathUtils.clamp(
+        (t - inicio) / (fin - inicio),
+        0,
+        1
+      );
+
+      const suave = local * local * (3 - 2 * local);
+
+      return (i + suave) / (tiemposRecorrido.length - 1);
+    }
+  }
+
+  return 1;
+}
+
+function actualizarRecorrido(tiempo) {
+  if (!recorrido3D.activo || !terreno || !vistaInicial) return;
+
+  if (!recorrido3D.ultimoTiempo) {
+    recorrido3D.ultimoTiempo = tiempo;
+  }
+
+  const delta = Math.min(
+    Math.max(tiempo - recorrido3D.ultimoTiempo, 0),
+    100
+  );
+
+  recorrido3D.ultimoTiempo = tiempo;
+
+  recorrido3D.progreso = Math.min(
+    1,
+    recorrido3D.progreso + delta / recorrido3D.duracion
+  );
+
+  const t = recorrido3D.progreso;
+  const posicion = posicionRecorrido(t);
+  camara.position.copy(posicion);
+
+  const siguiente = posicionRecorrido(
+    Math.min(1, t + 0.005)
+  );
+
+  const objetivo = siguiente.clone();
+
+  if (t > 0.78) {
+    const mezcla = THREE.MathUtils.smoothstep(t, 0.78, 0.98);
+    objetivo.lerp(destinoMonserrate, mezcla);
+  }
+
+  controles.target.copy(objetivo);
+  camara.lookAt(objetivo);
+
+  if (recorrido3D.progreso >= 1) {
+    recorrido3D.activo = false;
+    actualizarBotonesRecorrido();
+  }
+}
+botonReproducir.addEventListener('click', () => {
+  if (!terreno || !vistaInicial) return;
+
+  if (recorrido3D.progreso >= 1) recorrido3D.progreso = 0;
+
+  recorrido3D.activo = true;
+  recorrido3D.ultimoTiempo = 0;
+  actualizarBotonesRecorrido();
+});
+
+botonPausar.addEventListener('click', () => {
+  recorrido3D.activo = false;
+  recorrido3D.ultimoTiempo = 0;
+  actualizarBotonesRecorrido();
+});
+
+botonReiniciarRecorrido.addEventListener('click', () => {
+  recorrido3D.activo = false;
+  recorrido3D.progreso = 0;
+  recorrido3D.ultimoTiempo = 0;
+
+  if (vistaInicial) {
+    camara.position.copy(vistaInicial.posicion);
+    controles.target.copy(vistaInicial.objetivo);
+    controles.update();
+  }
+
+  actualizarBotonesRecorrido();
+});
+
+controles.addEventListener('start', () => {
+  if (recorrido3D.activo) {
+    recorrido3D.activo = false;
+    recorrido3D.ultimoTiempo = 0;
+    actualizarBotonesRecorrido();
+  }
+});
+
+actualizarBotonesRecorrido();
 document.getElementById('reiniciar').addEventListener('click', () => {
   if (vistaInicial) { camara.position.copy(vistaInicial.posicion); controles.target.copy(vistaInicial.objetivo); controles.update(); }
 });
@@ -503,8 +703,13 @@ iniciar().catch((error) => { console.error(error); estado.textContent = `Error d
 (function animar() {
   requestAnimationFrame(animar);
   controles.update();
+  actualizarRecorrido(performance.now());
   ajustarEtiquetasVias();
   renderizador.render(escena, camara);
 }());
+
+
+
+
 
 
