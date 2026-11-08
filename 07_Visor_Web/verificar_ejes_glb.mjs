@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { readFileSync } from 'node:fs';
 
 const loader = new GLTFLoader();
-const ruta = process.argv[2] || './public/models/Bogota_Copernicus_Terreno_3D.glb';
+const ruta = process.argv[2] || './public/models/bogota-dc/terreno.glb';
 const archivo = readFileSync(ruta);
 
 const datos = archivo.buffer.slice(
@@ -36,3 +36,4 @@ gltf.scene.traverse((objeto) => {
   }
   console.log('Eje vertical verificado: Y');
 });
+
